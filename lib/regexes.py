@@ -3,18 +3,25 @@ import re
 regexes = {
     'email': re.compile(r'[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}', re.I),
     #'ssn' : re.compile(r'\d{3}-?\d{2}-?\d{4}'),
-    'hash32': re.compile(r'[^<A-F\d/]([A-F\d]{32})[^A-F\d]', re.I),
+    'hash32': re.compile('([A-F\d]{32})', re.I),
+    'sha1' : re.compile('[0-9a-fA-F]{40}'),
+    'md5_wp' : re.compile('$.$.{31}'),
+    'imei' : re.compile('[0-9]{2}-[0-9]{6}-[0-9]{6}-([0-9]?|[0-9]{2})'),  #AAAAAA-BB-CCCCCC-D
+    'shadow' : re.compile('.*?(:(.)*?){8}'),
+    'ip' : re.compile('[0-2]?[0-9]?[0-9]+?(\.[0-2]?[0-9]?[0-9]+?){3}'),
     'FFF': re.compile(r'FBI\s*Friday', re.I),  # will need to work on this to not match CSS
     'lulz': re.compile(r'(lulzsec|antisec)', re.I),
     'cisco_hash': re.compile(r'enable\s+secret', re.I),
     'cisco_pass': re.compile(r'enable\s+password', re.I),
     'google_api': re.compile(r'\W(AIza.{35})'),
     'honeypot': re.compile(r'<dionaea\.capture>', re.I),
+    #'twitter' : re.compile('(@[^\.]+)|(twitter.com/\w+)'),
+    'twitter' : re.compile('(^@([A-Za-z0-9_]+))|(twitter.com/\w+)'),
     'db_keywords': [
     re.compile(
     r'((customers?|email|users?|members?|acc(?:oun)?ts?)([-_|/\s]?(address|name|id[^")a-zA-Z0-9_]|[-_:|/\\])))', re.I),
         re.compile(
-            r'((\W?pass(wor)?d|hash)[\s|:])', re.I),
+            r'((\W?pass(w)??(or)??(d??)|hash)[\s|:])', re.I),
         re.compile(
             r'((\btarget|\bsite)\s*?:?\s*?(([a-z][\w-]+:/{1,3})?([-\w\s_/]+\.)*[\w=/?%]+))', re.I),  # very basic URL check - may be improved later
         re.compile(

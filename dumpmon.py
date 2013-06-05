@@ -12,6 +12,7 @@ from lib.regexes import regexes
 from lib.Pastebin import Pastebin, PastebinPaste
 from lib.Slexy import Slexy, SlexyPaste
 from lib.Pastie import Pastie, PastiePaste
+from lib.Pastebin_ru import Pastebin_ru, Pastebin_ruPaste
 from lib.helper import log
 from time import sleep
 from twitter import Twitter, OAuth
@@ -50,8 +51,10 @@ def monitor():
         target=Slexy().monitor, args=[bot, tweet_lock])
     pastie_thead = threading.Thread(
         target=Pastie().monitor, args=[bot, tweet_lock])
+    pastebin_ru_thread = threading.Thread(
+    	target=Pastebin_ru().monitor, args=[bot, tweet_lock])
 
-    for thread in (pastebin_thread, slexy_thread, pastie_thead):
+    for thread in (pastebin_thread, slexy_thread, pastie_thead, pastebin_ru_thread):
         thread.daemon = True
         thread.start()
 

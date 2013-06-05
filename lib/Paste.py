@@ -9,8 +9,13 @@ class Paste(object):
         class Paste: Generic "Paste" object to contain attributes of a standard paste
 
         '''
+        self.eh = 0
         self.emails = 0
         self.hashes = 0
+        self.sha = 0
+        self.num_sha = 0
+        self.twitter = 0
+        self.num_twitter = 0
         self.num_emails = 0
         self.num_hashes = 0
         self.text = None
@@ -34,8 +39,22 @@ class Paste(object):
         # Get the amount of emails
         self.emails = list(set(regexes['email'].findall(self.text)))
         self.hashes = regexes['hash32'].findall(self.text)
+        self.sha = regexes['sha1'].findall(self.text)
+        self.num_sha = len(self.sha)
+        self.twitter = regexes['twitter'].findall(self.text)
+        self.num_twitter = len(self.twitter)
         self.num_emails = len(self.emails)
         self.num_hashes = len(self.hashes)
+        self.imei = regexes['imei'].findall(self.text)
+        self.num_imei = len(self.imei)
+        self.shadow = regexes['shadow'].findall(self.text)
+        self.num_shadow = len(self.shadow)
+        self.md5wp = regexes['md5_wp'].findall(self.text)
+        self.num_md5wp = len(self.md5wp)
+        if self.num_hashes > 0 or self.num_sha > 0:
+            self.eh = round(self.num_emails / float(self.num_hashes + self.num_sha), 2)
+        else:
+            self.eh = 0
         if self.num_emails > 0:
             self.sites = list(set([re.search('@(.*)$', email).group(1).lower() for email in self.emails]))
         for regex in regexes['db_keywords']:
@@ -48,17 +67,19 @@ class Paste(object):
                 logging.debug('\t[-] ' + regex.search(self.text).group(1))
                 self.db_keywords -= round(1.25 * (
                     1/float(len(regexes['db_keywords']))), 2)
-        if (self.num_emails >= settings.EMAIL_THRESHOLD) or (self.num_hashes >= settings.HASH_THRESHOLD) or (self.db_keywords >= settings.DB_KEYWORDS_THRESHOLD):
+        if (self.num_emails >= settings.EMAIL_THRESHOLD) or ((self.num_emails >= settings.EMAIL_THRESHOLD) and ((self.num_hashes >= settings.HASH_THRESHOLD) or (self.num_sha >= settings.HASH_THRESHOLD) or (self.num_md5wp >= settings.HASH_THRESHOLD))) or (self.db_keywords >= settings.DB_KEYWORDS_THRESHOLD):
             self.type = 'db_dump'
-        if regexes['cisco_hash'].search(self.text) or regexes['cisco_pass'].search(self.text):
+        elif (self.num_imei >= settings.HASH_THRESHOLD):
+            self.type = 'imei_leak'
+        elif regexes['cisco_hash'].search(self.text) or regexes['cisco_pass'].search(self.text):
             self.type = 'cisco'
-        if regexes['honeypot'].search(self.text):
+        elif regexes['honeypot'].search(self.text):
             self.type = 'honeypot'
-        if regexes['google_api'].search(self.text):
+        elif regexes['google_api'].search(self.text):
             self.type = 'google_api'
         # if regexes['juniper'].search(self.text): self.type = 'Juniper'
         for regex in regexes['banlist']:
             if regex.search(self.text):
-                self.type = None
+                self.type = 'not_int'
                 break
         return self.type

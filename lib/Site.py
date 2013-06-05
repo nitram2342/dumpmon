@@ -35,7 +35,7 @@ class Site(object):
             self.queue = []
         if USE_DB:
             # Lazily create the db and collection if not present
-            self.db_client = MongoClient(DB_HOST, DB_PORT).paste_db.pastes
+            self.db_client = MongoClient(DB_HOST, DB_PORT).paste_db.pastes2
 
 
     def empty(self):
@@ -78,23 +78,41 @@ class Site(object):
                 tweet = helper.build_tweet(paste)
                 if tweet:
                     logging.info(tweet)
-                    with t_lock:
+                with t_lock:
+                    if paste.type is not None:
                         if USE_DB:
                             self.db_client.save({
                                 'pid' : paste.id,
+                                'type' : paste.type,
                                 'text' : paste.text,
                                 'emails' : paste.emails,
                                 'hashes' : paste.hashes,
+                                'sha' : paste.sha,
+                                'num_sha' : paste.num_sha,
+                                'twitter' : paste.twitter,
+                                'num_twitter': paste.num_twitter,
                                 'num_emails' : paste.num_emails,
                                 'num_hashes' : paste.num_hashes,
                                 'type' : paste.type,
                                 'db_keywords' : paste.db_keywords,
-                                'url' : paste.url
+                                'url' : paste.url,
+                                'e\h' : paste.eh,
+                                'imei': paste.imei,
+                                'num_imei': paste.num_imei,
+                                'shadow' : paste.shadow,
+                                'num_shadow' : paste.shadow,
+                                'md5wp' : paste.md5wp,
+                                'num_md5wp' :paste.num_md5wp
                                })
+                    if tweet:
                         try:
-                            bot.statuses.update(status=tweet)
-                        except TwitterError:
-                            pass
+                            bot.statuses.update(status=tweet[0:140])#tweet[0][0:140]
+                            helper.log('[TWITTER] Tweeted tweet: ' + tweet)
+                        except TwitterError,e:
+                            helper.log('[TWITTER] Got Twitter Error : ' + e)
+                    else:
+                        #helper.log('[TWITTER] Not tweeted tweet: ' + tweet)
+                        pass
             self.update()
             while self.empty():
                 logging.debug('[*] No results... sleeping')
