@@ -69,14 +69,18 @@ def build_tweet(paste):
                 #mailarr = sorted(set(mailarr))
                 involved = []
                 for i in range(0,3):
-                    first = max(set(mailarr),key=mailarr.count)
+					try:
+                        first = max(set(mailarr),key=mailarr.count)
+                    except:
+						break
                     involved.append(first)
                     while(True):
                         try:
                             mailarr.remove(first)
                         except:
                             break
-                tweet += ' @' + ' @'.join(involved)
+                if len(involved) > 1:
+                    tweet += ' @' + ' @'.join(involved)
 
             tweet += ' Keywords: ' + str(paste.db_keywords)
         elif paste.type == 'google_api':
