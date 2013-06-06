@@ -69,10 +69,10 @@ def build_tweet(paste):
                 #mailarr = sorted(set(mailarr))
                 involved = []
                 for i in range(0,3):
-					try:
+                    try:
                         first = max(set(mailarr),key=mailarr.count)
                     except:
-						break
+                        break
                     involved.append(first)
                     while(True):
                         try:
