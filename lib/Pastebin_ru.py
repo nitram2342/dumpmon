@@ -31,7 +31,7 @@ class Pastebin_ru(Site):
         logging.info('Retrieving Pastebin.ru ID\'s')
         #results = BeautifulSoup(helper.download(self.BASE_URL + '/archive')).find_all(
         #    lambda tag: tag.name == 'td' and tag.a and '/archive/' not in tag.a['href'] and tag.a['href'][1:])
-	    url = self.BASE_URL + '/archive/' + '/'.join(str(datetime.date.today()).split('-')[0:2])
+	url = self.BASE_URL + '/archive/' + '/'.join(str(datetime.date.today()).split('-')[0:2])
         soup = BeautifulSoup(helper.download(url))
         snip = soup.find('section','news_list')
         results = []
