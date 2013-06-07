@@ -40,7 +40,7 @@ class Nopaste(Site):
             except:
                 pass
             if '#' not in temp:
-                results.append[temp]
+                results.append(temp)
         new_pastes = []
         if not self.ref_id:
             results = results[:60]
