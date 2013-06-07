@@ -32,7 +32,7 @@ class Nopaste(Site):
         #results = BeautifulSoup(helper.download(self.BASE_URL + '/archive')).find_all(
         #    lambda tag: tag.name == 'td' and tag.a and '/archive/' not in tag.a['href'] and tag.a['href'][1:])
         url = self.BASE_URL + '/recent'
-        soup = BeautifulSoup(urllib2.urlopen(url).read())
+        soup = BeautifulSoup(helper.download(url))
         snip = soup.find('div',{'class':'grid_12 content'})
         for div in snip.findAll('div',{'class':'grid_3 info'}):
             try:
