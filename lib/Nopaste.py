@@ -13,7 +13,7 @@ class NopastePaste(Paste):
         self.id = id
         self.headers = None
         self.url = self.id
-        super(PastebinPaste, self).__init__()
+        super(NopastePaste, self).__init__()
 
 
 class Nopaste(Site):
@@ -23,11 +23,11 @@ class Nopaste(Site):
         self.ref_id = last_id
         self.BASE_URL = 'http://nopaste.me'
         self.sleep = SLEEP_PASTEBIN
-        super(Pastebin, self).__init__()
+        super(Nopaste, self).__init__()
 
     def update(self):
         '''update(self) - Fill Queue with new Pastebin IDs'''
-        logging.info('Retrieving Pastebin ID\'s')
+        logging.info('Retrieving Nopaste ID\'s')
         results = []
         #results = BeautifulSoup(helper.download(self.BASE_URL + '/archive')).find_all(
         #    lambda tag: tag.name == 'td' and tag.a and '/archive/' not in tag.a['href'] and tag.a['href'][1:])
