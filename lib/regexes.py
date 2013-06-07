@@ -18,7 +18,7 @@ regexes = {
     'google_api': re.compile(r'\W(AIza.{35})'),
     'honeypot': re.compile(r'<dionaea\.capture>', re.I),
     #'twitter' : re.compile('(@[^\.]+)|(twitter.com/\w+)'),
-    'twitter' : re.compile('(^@([A-Za-z0-9_]+))|(twitter.com/\w+)',
+    'twitter' : re.compile('(^@([A-Za-z0-9_]+))|(twitter.com/\w+)'),
     'phonenum' : re.compile('(\d{1,4}[\s|-|/]?\d{1,4})+?'), #first stub
     'db_keywords': [
     re.compile(
