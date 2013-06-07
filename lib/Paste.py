@@ -55,8 +55,8 @@ class Paste(object):
         self.num_md5wp = len(self.md5wp)
         self.userpass = regexes['userpass'].findall(self.text)
         self.num_userpass = len(self.userpass)
-        self.phonenum = regexes['phonenum'].findall(self.text)
-        self.num_phonenum = len(self.phonenum)
+        #self.phonenum = regexes['phonenum'].findall(self.text)
+        #self.num_phonenum = len(self.phonenum)
         if self.num_hashes > 0 or self.num_sha > 0:
             self.eh = round(self.num_emails / float(self.num_hashes + self.num_sha), 2)
         else:
@@ -75,7 +75,7 @@ class Paste(object):
                     1/float(len(regexes['db_keywords']))), 2)
         if (self.num_emails >= settings.EMAIL_THRESHOLD) or ((self.num_emails >= settings.EMAIL_THRESHOLD) and ((self.num_hashes >= settings.HASH_THRESHOLD) or (self.num_sha >= settings.HASH_THRESHOLD) or (self.num_md5wp >= settings.HASH_THRESHOLD))) or (self.db_keywords >= settings.DB_KEYWORDS_THRESHOLD):
             self.type = 'db_dump'
-        elif self.num_userpass >= settings.EMAIL_THRESHOLD):
+        elif self.num_userpass >= settings.EMAIL_THRESHOLD:
 			self.type = 'db_dump'
         elif (self.num_imei >= settings.HASH_THRESHOLD):
             self.type = 'imei_leak'
@@ -85,8 +85,8 @@ class Paste(object):
             self.type = 'honeypot'
         elif regexes['google_api'].search(self.text):
             self.type = 'google_api'
-        elif self.num_phonenum > settings.EMAIL_THRESHOLD:
-			self.type = 'phone_leak'
+        #elif self.num_phonenum > settings.EMAIL_THRESHOLD:
+	#		self.type = 'phone_leak'
         # if regexes['juniper'].search(self.text): self.type = 'Juniper'
         for regex in regexes['banlist']:
             if regex.search(self.text):

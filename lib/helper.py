@@ -94,9 +94,9 @@ def build_tweet(paste):
         elif paste.type == 'honeypot':
             tweet += ' Dionaea Honeypot Log'
         elif paste.type == 'imei_leak':
-			tweet += 'Found ' + paste.num_imei + ' possible IMEIs'
-		elif paste.type == 'phone_leak':
-			tweet += 'Found ' + paste.num_phone
+            tweet += ' Found ' + str(paste.num_imei) + ' possible IMEIs'
+	#elif paste.type == 'phone_leak':
+	#    tweet += ' Found ' + str(paste.num_phonenum) + ' possibile phone numbers'
         #tweet += ' #infoleak'
     if paste.num_emails > 0:
         print(paste.emails)
