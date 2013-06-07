@@ -32,6 +32,7 @@ def monitor():
     parser.add_argument(
         "-v", "--verbose", help="more verbose", action="store_true")
     args = parser.parse_args()
+    helper.rotate()
     level = logging.INFO
     if args.verbose:
         level = logging.DEBUG

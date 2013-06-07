@@ -6,6 +6,8 @@ Author: Jordan
 
 import requests
 import settings
+import os
+import os.path
 from time import sleep, strftime
 import logging
 import bitlyapi
@@ -28,6 +30,9 @@ def download(url, headers=None):
         response = download(url)
     return response
 
+def rotate():
+	if os.path.exists(setting.log_file):
+		os.rename(settings.log_file,settings.log_file + '.old')
 
 def log(text):
     '''
