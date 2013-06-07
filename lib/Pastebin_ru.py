@@ -36,7 +36,7 @@ class Pastebin_ru(Site):
         snip = soup.find('section','news_list')
         results = []
         for article in snip.findAll('article','item'):
-			results.append(article.header.a['href'])
+	        results.append(article.header.a['href'])
         new_pastes = []
         if not self.ref_id:
             results = results[:60]

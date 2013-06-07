@@ -76,7 +76,7 @@ class Paste(object):
         if (self.num_emails >= settings.EMAIL_THRESHOLD) or ((self.num_emails >= settings.EMAIL_THRESHOLD) and ((self.num_hashes >= settings.HASH_THRESHOLD) or (self.num_sha >= settings.HASH_THRESHOLD) or (self.num_md5wp >= settings.HASH_THRESHOLD))) or (self.db_keywords >= settings.DB_KEYWORDS_THRESHOLD):
             self.type = 'db_dump'
         elif self.num_userpass >= settings.EMAIL_THRESHOLD:
-			self.type = 'db_dump'
+	        self.type = 'db_dump'
         elif (self.num_imei >= settings.HASH_THRESHOLD):
             self.type = 'imei_leak'
         elif regexes['cisco_hash'].search(self.text) or regexes['cisco_pass'].search(self.text):
@@ -86,8 +86,8 @@ class Paste(object):
         elif regexes['google_api'].search(self.text):
             self.type = 'google_api'
         #elif self.num_phonenum > settings.EMAIL_THRESHOLD:
-	#		self.type = 'phone_leak'
-        # if regexes['juniper'].search(self.text): self.type = 'Juniper'
+	    #   self.type = 'phone_leak'
+        #if regexes['juniper'].search(self.text): self.type = 'Juniper'
         for regex in regexes['banlist']:
             if regex.search(self.text):
                 self.type = 'not_int'
