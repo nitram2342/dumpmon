@@ -2,8 +2,8 @@ import re
 
 regexes = {
     'email': re.compile(r'[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}', re.I),
-    'mail-pass' : re.compile('^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\s*?[:|\||/]\s*?\w[4-50]\n')
-    'user-pass' : re.compile('^\w{4-50}\s*?[:|\||/]\s*?\w[4-50]\n')
+    #'mail-pass' : re.compile('^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\s*?[:|\||/]\s*?\w[4-50]\n'),
+    'userpass' : re.compile('^\w{4-50}\s*?[:|\||/]\s*?\w{4-50}[:|\||/\n|\s]?'),
     #'ssn' : re.compile(r'\d{3}-?\d{2}-?\d{4}'),
     'hash32': re.compile('([A-F\d]{32})', re.I),
     'sha1' : re.compile('[0-9a-fA-F]{40}'),
@@ -18,7 +18,8 @@ regexes = {
     'google_api': re.compile(r'\W(AIza.{35})'),
     'honeypot': re.compile(r'<dionaea\.capture>', re.I),
     #'twitter' : re.compile('(@[^\.]+)|(twitter.com/\w+)'),
-    'twitter' : re.compile('(^@([A-Za-z0-9_]+))|(twitter.com/\w+)'),
+    'twitter' : re.compile('(^@([A-Za-z0-9_]+))|(twitter.com/\w+)',
+    'phonenum' : re.compile('(\d{1,4}[\s|-|/]?\d{1,4})+?'), #first stub
     'db_keywords': [
     re.compile(
     r'((customers?|email|users?|members?|acc(?:oun)?ts?)([-_|/\s]?(address|name|id[^")a-zA-Z0-9_]|[-_:|/\\])))', re.I),

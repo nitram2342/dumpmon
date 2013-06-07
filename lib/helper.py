@@ -61,8 +61,10 @@ def build_tweet(paste):
                 mailhash = str(round(paste.num_emails / float(paste.num_hashes + paste.num_sha), 2))
                 tweet += ' E/H: ' + mailhash
             if paste.num_twitter > 0:
-                    tweet += ' TA: ' + str(paste.num_twitter)
-            if float(mailhash) >= 0.30 and float(mailhash) <= 3:
+                tweet += ' TA: ' + str(paste.num_twitter)
+            if paste.num_userpass > 0:
+				tweet += ' U/P: ' + str(paste.num_userpass)
+            if float(mailhash) >= 0.30 and float(mailhash) <= 3: #or num_userpass > settings.EMAIL_THRESHOLD:
                 mailarr = []
                 for mail in paste.emails:
                     mailarr.append(mail.split('@')[1].split('.')[0])
@@ -91,6 +93,10 @@ def build_tweet(paste):
             tweet += ' Possible SSH private key'
         elif paste.type == 'honeypot':
             tweet += ' Dionaea Honeypot Log'
+        elif paste.type == 'imei_leak':
+			tweet += 'Found ' + paste.num_imei + ' possible IMEIs'
+		elif paste.type == 'phone_leak':
+			tweet += 'Found ' + paste.num_phone
         #tweet += ' #infoleak'
     if paste.num_emails > 0:
         print(paste.emails)
