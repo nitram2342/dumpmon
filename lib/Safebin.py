@@ -6,46 +6,55 @@ from time import sleep
 from settings import SLEEP_PASTEBIN
 from twitter import TwitterError
 import logging
+import datetime
 
 
-class NopastePaste(Paste):
+class SafebinPaste(Paste):
     def __init__(self, id):
         self.id = id
         self.headers = None
-        self.url = self.id
-        super(NopastePaste, self).__init__()
+        self.url = 'http://pastebin.ru/' + self.id + '/d/'
+        super(SafebinPaste, self).__init__()
 
 
-class Nopaste(Site):
+class Safebin(Site):
     def __init__(self, last_id=None):
         if not last_id:
             last_id = None
         self.ref_id = last_id
-        self.BASE_URL = 'http://nopaste.me'
+        self.BASE_URL = 'http://safebin.net'
         self.sleep = SLEEP_PASTEBIN
-        super(Nopaste, self).__init__()
+        super(Safebin, self).__init__()
+
+
 
     def update(self):
-        '''update(self) - Fill Queue with new Pastebin IDs'''
-        logging.info('Retrieving Nopaste ID\'s')
-        results = []
+        '''update(self) - Fill Queue with new Safebin IDs'''
+        logging.info('Retrieving Safebin ID\'s')
         #results = BeautifulSoup(helper.download(self.BASE_URL + '/archive')).find_all(
         #    lambda tag: tag.name == 'td' and tag.a and '/archive/' not in tag.a['href'] and tag.a['href'][1:])
-        url = self.BASE_URL + '/recent'
+		url = self.BASE_URL + '/?archive'
         soup = BeautifulSoup(helper.download(url))
-        snip = soup.find('div',{'class':'grid_12 content'})
-        for div in snip.findAll('div',{'class':'grid_3 info'}):
-            try:
-                temp = div.a['href']
-            except:
-                pass
-            if '#' not in temp:
-                results.append(temp)
+        snip = soup.find('table',{'class':'archive'})
+        results = []
+		temp = []
+        for tr in snip.findAll('tr'):
+	        for td in tr.findAll('td'):
+		        try:
+			        temp.append(td.img['title'])
+		        except:
+			        try:
+				        temp.append(td.a['href'],td.a['title'])
+			        except:
+				        pass
+        for item in temp:
+	        if len(item) > 1 and datetime.datetime.strptime(','.join(item[1].split(',')[0:2]), '%A %B %d, %Y') > datetime.datetime.today() - timedelta(days=7):
+		        results.append[item]
         new_pastes = []
         if not self.ref_id:
             results = results[:60]
         for entry in results:
-            paste = NopastePaste(entry)
+            paste = SafebinPaste(entry)
             # Check to see if we found our last checked URL
             if paste.id == self.ref_id:
                 break
