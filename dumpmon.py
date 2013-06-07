@@ -13,6 +13,7 @@ from lib.Pastebin import Pastebin, PastebinPaste
 from lib.Slexy import Slexy, SlexyPaste
 from lib.Pastie import Pastie, PastiePaste
 from lib.Pastebin_ru import Pastebin_ru, Pastebin_ruPaste
+from lib.Nopaste import Nopaste, NopastePaste
 from lib.helper import log
 from time import sleep
 from twitter import Twitter, OAuth
