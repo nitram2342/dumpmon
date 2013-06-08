@@ -7,7 +7,7 @@ regexes = {
     #'ssn' : re.compile(r'\d{3}-?\d{2}-?\d{4}'),
     'hash32': re.compile('([A-F\d]{32})', re.I),
     'sha1' : re.compile('[0-9a-fA-F]{40}'),
-    'md5_wp' : re.compile('$.$.{31}'),
+    'md5_wp' : re.compile('\$.\$.{31}'),
     'imei' : re.compile('[0-9]{2}-[0-9]{6}-[0-9]{6}-([0-9]?|[0-9]{2})'),  #AAAAAA-BB-CCCCCC-D
     'shadow' : re.compile('.*?(:(.)*?){8}'),
     'ip' : re.compile('[0-2]?[0-9]?[0-9]+?(\.[0-2]?[0-9]?[0-9]+?){3}'),
