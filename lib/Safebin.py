@@ -33,11 +33,11 @@ class Safebin(Site):
         logging.info('Retrieving Safebin ID\'s')
         #results = BeautifulSoup(helper.download(self.BASE_URL + '/archive')).find_all(
         #    lambda tag: tag.name == 'td' and tag.a and '/archive/' not in tag.a['href'] and tag.a['href'][1:])
-		url = self.BASE_URL + '/?archive'
+	url = self.BASE_URL + '/?archive'
         soup = BeautifulSoup(helper.download(url))
         snip = soup.find('table',{'class':'archive'})
         results = []
-		temp = []
+	temp = []
         for tr in snip.findAll('tr'):
 	        for td in tr.findAll('td'):
 		        try:

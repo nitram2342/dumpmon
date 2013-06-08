@@ -31,7 +31,7 @@ def download(url, headers=None):
     return response
 
 def rotate():
-	if os.path.exists(setting.log_file):
+	if os.path.exists(settings.log_file):
 		os.rename(settings.log_file,settings.log_file + '.old')
 
 def log(text):

@@ -13,8 +13,10 @@ from lib.Pastebin import Pastebin, PastebinPaste
 from lib.Slexy import Slexy, SlexyPaste
 from lib.Pastie import Pastie, PastiePaste
 from lib.Pastebin_ru import Pastebin_ru, Pastebin_ruPaste
+from lib.Safebin import Safebin, SafebinPaste
 from lib.Nopaste import Nopaste, NopastePaste
 from lib.helper import log
+from lib.helper import rotate
 from time import sleep
 from twitter import Twitter, OAuth
 from settings import CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET, log_file
@@ -32,7 +34,7 @@ def monitor():
     parser.add_argument(
         "-v", "--verbose", help="more verbose", action="store_true")
     args = parser.parse_args()
-    helper.rotate()
+    rotate()
     level = logging.INFO
     if args.verbose:
         level = logging.DEBUG
