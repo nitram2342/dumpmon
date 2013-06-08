@@ -13,7 +13,7 @@ class SafebinPaste(Paste):
     def __init__(self, id):
         self.id = id
         self.headers = None
-        self.url = 'http://pastebin.ru/' + self.id + '/d/'
+        self.url = 'http://safebin.net' + self.id
         super(SafebinPaste, self).__init__()
 
 
