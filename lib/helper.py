@@ -69,25 +69,25 @@ def build_tweet(paste):
                 tweet += ' TA: ' + str(paste.num_twitter)
             if paste.num_userpass > 0:
 				tweet += ' U/P: ' + str(paste.num_userpass)
-            if float(mailhash) >= 0.30 and float(mailhash) <= 3: #or num_userpass > settings.EMAIL_THRESHOLD:
-                mailarr = []
-                for mail in paste.emails:
-                    mailarr.append(mail.split('@')[1].split('.')[0])
-                #mailarr = sorted(set(mailarr))
-                involved = []
-                for i in range(0,3):
-                    try:
-                        first = max(set(mailarr),key=mailarr.count)
-                    except:
-                        break
-                    involved.append(first)
-                    while(True):
-                        try:
-                            mailarr.remove(first)
-                        except:
-                            break
-                if len(involved) > 1:
-                    tweet += ' @' + ' @'.join(involved)
+            #if float(mailhash) >= 0.30 and float(mailhash) <= 3: #or num_userpass > settings.EMAIL_THRESHOLD:
+            #    mailarr = []
+            #    for mail in paste.emails:
+            #        mailarr.append(mail.split('@')[1].split('.')[0])
+            #    #mailarr = sorted(set(mailarr))
+            #    involved = []
+            #    for i in range(0,3):
+            #        try:
+            #            first = max(set(mailarr),key=mailarr.count)
+            #        except:
+            #            break
+            #        involved.append(first)
+            #        while(True):
+            #            try:
+            #                mailarr.remove(first)
+            #            except:
+            #                break
+            #    if len(involved) > 1:
+            #        tweet += ' @' + ' @'.join(involved)
 
             tweet += ' Keywords: ' + str(paste.db_keywords)
         elif paste.type == 'google_api':

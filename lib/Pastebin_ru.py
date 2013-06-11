@@ -13,7 +13,7 @@ class Pastebin_ruPaste(Paste):
     def __init__(self, id):
         self.id = id
         self.headers = None
-        self.url = 'http://pastebin.ru/' + self.id + '/d/'
+        self.url = 'http://pastebin.ru' + self.id + '/d/'
         super(Pastebin_ruPaste, self).__init__()
 
 
