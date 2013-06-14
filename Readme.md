@@ -1,4 +1,3 @@
-
 ## Twitter-bot which monitors paste sites for interesting content
 
 ## Dependencies
@@ -23,3 +22,6 @@ If you do not want DB support, set USE_DB to False.
 ## Executing dumpmon
 
 	python dumpmon.py
+	
+## Twitter
+If you'd like to see the bot in action, there is an instance running [here.] (https://twitter.com/MyPasteDaemon)
