@@ -3,7 +3,7 @@ import re
 regexes = {
     'email': re.compile(r'[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}', re.I),
     #'mail-pass' : re.compile('^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\s*?[:|\||/]\s*?\w[4-50]\n'),
-    'userpass' : re.compile('^\w{4-50}\s*?[;|:|\||/]\s*?\w{4-50}[:|\||/\n|\s]?'),
+    'userpass' : re.compile('^\w{4-50}\s*?[;|:|\||/|\t]+?\s*?\w{4-50}[:|\||/\n|\s]?'),
     #'ssn' : re.compile(r'\d{3}-?\d{2}-?\d{4}'),
     'hash32': re.compile('([A-F\d]{32})', re.I),
     'sha1' : re.compile('[0-9a-fA-F]{40}'),
