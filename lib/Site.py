@@ -108,9 +108,9 @@ class Site(object):
                     if tweet:
                         try:
                             bot.statuses.update(status=tweet[0:140])#tweet[0][0:140]
-                            helper.log('[TWITTER] Tweeted tweet: ' + tweet)
+                            logging.info('[TWITTER] Tweeted tweet: ' + tweet)
                         except TwitterError,e:
-                            helper.log('[TWITTER] Got Twitter Error at ' + str(datetime.datetime.now()))
+                            logging.info('[TWITTER] Got Twitter Error at ' + str(datetime.datetime.now()))
                     else:
                         #helper.log('[TWITTER] Not tweeted tweet: ' + tweet)
                         pass
