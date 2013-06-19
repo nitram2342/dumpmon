@@ -62,7 +62,10 @@ def monitor():
     safebin_thread = threading.Thread(
         target=Safebin().monitor, args = [bot, tweet_lock])
 
-    for thread in (pastebin_thread, slexy_thread, pastie_thead, pastebin_ru_thread, nopaste_thread, safebin_thread):
+    """for thread in (pastebin_thread, slexy_thread, pastie_thead, pastebin_ru_thread, nopaste_thread, safebin_thread):
+        thread.daemon = True
+        thread.start()"""
+    for thread in (pastebin_thread, slexy_thread, pastie_thead, pastebin_ru_thread, nopaste_thread):
         thread.daemon = True
         thread.start()
 
