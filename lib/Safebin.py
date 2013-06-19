@@ -48,8 +48,8 @@ class Safebin(Site):
 			        except:
 				        pass
         for item in temp:
-#	        if len(item) > 1 and datetime.datetime.strptime(','.join(item[1].split(',')[0:2]), '%A %B %d, %Y') > datetime.datetime.today() - timedelta(days=1):
-	        results.append[item]
+	        if len(item) > 1 :#and datetime.datetime.strptime(','.join(item[1].split(',')[0:2]), '%A %B %d, %Y') > datetime.datetime.today() - timedelta(days=1):
+	        	results.append[item]
         new_pastes = []
         if not self.ref_id:
             results = results[:60]
