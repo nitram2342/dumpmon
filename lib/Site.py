@@ -111,9 +111,9 @@ class Site(object):
                             logging.info('[TWITTER] Tweeted tweet: ' + tweet)
                         except TwitterError,e:
                             logging.info('[TWITTER] Got Twitter Error at ' + str(datetime.datetime.now()))
-                    else:
+                    #else:
                         #helper.log('[TWITTER] Not tweeted tweet: ' + tweet)
-                        pass
+                    #    pass
             self.update()
             while self.empty():
                 logging.debug('[*] No results... sleeping')
