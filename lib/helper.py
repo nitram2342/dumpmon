@@ -30,7 +30,7 @@ def download(url, headers=None):
             logging.warn('[!] Retrying...')
             #response = download(url)
             continue
-    break
+        break
     return response
 
 def rotate():
