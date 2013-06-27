@@ -21,13 +21,16 @@ def download(url, headers=None):
         headers = None
     if headers:
         r.headers.update(headers)
-    try:
-        response = r.get(url).text
-    except requests.ConnectionError:
-        logging.warn('[!] Critical Error - Cannot connect to site')
-        sleep(5)
-        logging.warn('[!] Retrying...')
-        response = download(url)
+	while True:
+        try:
+            response = r.get(url).text
+        except requests.ConnectionError:
+            logging.warn('[!] Critical Error - Cannot connect to site')
+            sleep(2)
+            logging.warn('[!] Retrying...')
+            #response = download(url)
+            continue
+    break
     return response
 
 def rotate():
