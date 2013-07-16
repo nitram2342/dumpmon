@@ -33,23 +33,26 @@ class Safebin(Site):
         logging.info('Retrieving Safebin ID\'s')
         #results = BeautifulSoup(helper.download(self.BASE_URL + '/archive')).find_all(
         #    lambda tag: tag.name == 'td' and tag.a and '/archive/' not in tag.a['href'] and tag.a['href'][1:])
-	url = self.BASE_URL + '/?archive'
+        url = self.BASE_URL + '/?archive'
         soup = BeautifulSoup(helper.download(url))
         snip = soup.find('table',{'class':'archive'})
         results = []
-	temp = []
-        for tr in snip.findAll('tr'):
-	        for td in tr.findAll('td'):
-		        try:
-			        temp.append(td.img['title'])
-		        except:
-			        try:
-				        temp.append(td.a['href'],td.a['title'])
-			        except:
-				        pass
-        for item in temp:
-	        if len(item) > 1: # and datetime.datetime.strptime(','.join(item[1].split(',')[0:2]), '%A %B %d, %Y') > datetime.datetime.today() - timedelta(days=1):
-	        	results.append(item[0])
+        temp = []
+        try:
+            for tr in snip.findAll('tr'):
+	            for td in tr.findAll('td'):
+		            try:
+			            temp.append(td.img['title'])
+		            except:
+			            try:
+			    	        temp.append(td.a['href'],td.a['title'])
+			            except:
+			    	        pass
+            for item in temp:
+	            if len(item) > 1: # and datetime.datetime.strptime(','.join(item[1].split(',')[0:2]), '%A %B %d, %Y') > datetime.datetime.today() - timedelta(days=1):
+	        	    results.append(item[0])
+        except:
+            pass
         new_pastes = []
         if not self.ref_id:
             results = results[:60]
