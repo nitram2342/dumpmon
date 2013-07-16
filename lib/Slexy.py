@@ -30,6 +30,7 @@ class Slexy(Site):
         logging.info('[*] Retrieving Slexy ID\'s')
         results = BeautifulSoup(helper.download(self.BASE_URL + '/recent')).find_all(
             lambda tag: tag.name == 'td' and tag.a and '/view/' in tag.a['href'])
+	logging.info('Found ' + str(len(results)) + ' links')
         new_pastes = []
         if not self.ref_id:
             results = results[:60]
@@ -44,4 +45,4 @@ class Slexy(Site):
             self.put(entry)
 
     def get_paste_text(self, paste):
-        return helper.download(paste.url, paste.headers)
+        return helper.download(paste.url)#, paste.headers)

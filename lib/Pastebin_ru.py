@@ -40,6 +40,7 @@ class Pastebin_ru(Site):
 	        	results.append(article.header.a['href'])
 	except:
 		pass
+	logging.info('Found ' + str(len(results)) + ' links')
         new_pastes = []
         if not self.ref_id:
             results = results[:60]

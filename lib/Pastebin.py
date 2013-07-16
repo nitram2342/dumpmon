@@ -30,6 +30,7 @@ class Pastebin(Site):
         logging.info('Retrieving Pastebin ID\'s')
         results = BeautifulSoup(helper.download(self.BASE_URL + '/archive')).find_all(
             lambda tag: tag.name == 'td' and tag.a and '/archive/' not in tag.a['href'] and tag.a['href'][1:])
+	logging.info('Found ' + str(len(results)) + ' links')
         new_pastes = []
         if not self.ref_id:
             results = results[:60]

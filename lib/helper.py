@@ -4,7 +4,8 @@ Author: Jordan
 
 '''
 
-import requests
+import urllib2
+#import requests
 import settings
 import os
 import os.path
@@ -15,15 +16,33 @@ import bitlyapi
 
 r = requests.Session()
 
+def download(url):
+    response = ''
+    tries = 0
+    while True:
+        try:
+            response = urllib2.urlopen(url).read()
+        except:
+            tries += 1
+            logging.warn('[!] Critical Error - Cannot connect to site')
+            sleep(2)
+            logging.warn('[!] Retrying...')
+            if tries <= 5:
+                continue
+        break
+    if response and response is not None:
+        return response
+    else:
+        return ''
 
-def download(url, headers=None):
+def old_download(url, headers=None):
     response = ''
     if not headers:
         headers = None
     if headers:
         r.headers.update(headers)
-	tries = 0
-	while True:
+	    tries = 0
+	    while True:
             try:
                 response = r.get(url).text
             except requests.ConnectionError:

@@ -53,6 +53,7 @@ class Safebin(Site):
 	        	    results.append(item[0])
         except:
             pass
+	logging.info('Found ' + str(len(results)) + ' links')
         new_pastes = []
         if not self.ref_id:
             results = results[:60]
