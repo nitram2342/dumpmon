@@ -43,8 +43,8 @@ def monitor():
     logging.info('Monitoring...')
     bot = Twitter(
         auth=OAuth(ACCESS_TOKEN, ACCESS_TOKEN_SECRET,
-            CONSUMER_KEY, CONSUMER_SECRET)
-        )
+                   CONSUMER_KEY, CONSUMER_SECRET)
+    )
     # Create lock for both output log and tweet action
     log_lock = threading.Lock()
     tweet_lock = threading.Lock()
@@ -56,11 +56,11 @@ def monitor():
     pastie_thead = threading.Thread(
         target=Pastie().monitor, args=[bot, tweet_lock])
     pastebin_ru_thread = threading.Thread(
-    	target=Pastebin_ru().monitor, args=[bot, tweet_lock])
+        target=Pastebin_ru().monitor, args=[bot, tweet_lock])
     nopaste_thread = threading.Thread(
-	    target=Nopaste().monitor, args = [bot, tweet_lock])
+        target=Nopaste().monitor, args=[bot, tweet_lock])
     safebin_thread = threading.Thread(
-        target=Safebin().monitor, args = [bot, tweet_lock])
+        target=Safebin().monitor, args=[bot, tweet_lock])
 
     """for thread in (pastebin_thread, slexy_thread, pastie_thead, pastebin_ru_thread, nopaste_thread, safebin_thread):
         thread.daemon = True
@@ -71,15 +71,15 @@ def monitor():
 
     # Let threads run
     try:
-	#i = 0
+        # i = 0
         while(1):
         #    i += 1
             sleep(5)
         #    if i == 6:
-	#	for thread in (pastebin_thread, slexy_thread, pastie_thead, pastebin_ru_thread, nopaste_thread):
-	#		if not thread.isAlive:
-	#			thread.daemon = True
-	#			thread.start()
+        #	for thread in (pastebin_thread, slexy_thread, pastie_thead, pastebin_ru_thread, nopaste_thread):
+        #		if not thread.isAlive:
+        #			thread.daemon = True
+        #			thread.start()
     except KeyboardInterrupt:
         logging.warn('Stopped.')
 

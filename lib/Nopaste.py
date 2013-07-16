@@ -10,6 +10,7 @@ import datetime
 
 
 class NopastePaste(Paste):
+
     def __init__(self, id):
         self.id = id
         self.headers = None
@@ -18,6 +19,7 @@ class NopastePaste(Paste):
 
 
 class Nopaste(Site):
+
     def __init__(self, last_id=None):
         if not last_id:
             last_id = None
@@ -30,14 +32,15 @@ class Nopaste(Site):
         '''update(self) - Fill Queue with new Pastebin IDs'''
         logging.info('Retrieving Nopaste ID\'s')
         results = []
-        #results = BeautifulSoup(helper.download(self.BASE_URL + '/archive')).find_all(
-        #    lambda tag: tag.name == 'td' and tag.a and '/archive/' not in tag.a['href'] and tag.a['href'][1:])
+        # results = BeautifulSoup(helper.download(self.BASE_URL + '/archive')).find_all(
+        # lambda tag: tag.name == 'td' and tag.a and '/archive/' not in
+        # tag.a['href'] and tag.a['href'][1:])
         url = self.BASE_URL + '/recent'
-        try: 
+        try:
             soup = BeautifulSoup(helper.download(url))
-            snip = soup.find('div',{'class':'grid_12 content'})
-         
-            for div in snip.findAll('div',{'class':'grid_3 info'}):
+            snip = soup.find('div', {'class': 'grid_12 content'})
+
+            for div in snip.findAll('div', {'class': 'grid_3 info'}):
                 try:
                     temp = div.a['href']
                 except:
@@ -45,11 +48,12 @@ class Nopaste(Site):
                 if '#' not in temp:
                     results.append(temp)
         except:
-            #print 'some error downloading/parsing Nopaste at ' + str(datetime.datetime.now())
-            #outfile = open('Nopaste.error','w')
-            #outfile.write(soup.prettify())
-            #outfile.close()
-            logging.info('some error downloading/parsing Nopaste at ' + str(datetime.datetime.now())
+            # print 'some error downloading/parsing Nopaste at ' + str(datetime.datetime.now())
+            # outfile = open('Nopaste.error','w')
+            # outfile.write(soup.prettify())
+            # outfile.close()
+            pass
+            #logging.info('some error downloading/parsing Nopaste at ' + str(datetime.datetime.now())
         new_pastes = []
         if not self.ref_id:
             results = results[:60]

@@ -10,6 +10,7 @@ import datetime
 
 
 class Pastebin_ruPaste(Paste):
+
     def __init__(self, id):
         self.id = id
         self.headers = None
@@ -18,6 +19,7 @@ class Pastebin_ruPaste(Paste):
 
 
 class Pastebin_ru(Site):
+
     def __init__(self, last_id=None):
         if not last_id:
             last_id = None
@@ -29,18 +31,20 @@ class Pastebin_ru(Site):
     def update(self):
         '''update(self) - Fill Queue with new Pastebin.ru IDs'''
         logging.info('Retrieving Pastebin.ru ID\'s')
-        #results = BeautifulSoup(helper.download(self.BASE_URL + '/archive')).find_all(
-        #    lambda tag: tag.name == 'td' and tag.a and '/archive/' not in tag.a['href'] and tag.a['href'][1:])
-	url = self.BASE_URL + '/archive/' + '/'.join(str(datetime.date.today()).split('-')[0:2])
+        # results = BeautifulSoup(helper.download(self.BASE_URL + '/archive')).find_all(
+        # lambda tag: tag.name == 'td' and tag.a and '/archive/' not in
+        # tag.a['href'] and tag.a['href'][1:])
+        url = self.BASE_URL + '/archive/' + \
+            '/'.join(str(datetime.date.today()).split('-')[0:2])
         soup = BeautifulSoup(helper.download(url))
-        snip = soup.find('section','news_list')
+        snip = soup.find('section', 'news_list')
         results = []
-	try:
-        	for article in snip.findAll('article','item'):
-	        	results.append(article.header.a['href'])
-	except:
-		pass
-	logging.info('Found ' + str(len(results)) + ' links')
+        try:
+            for article in snip.findAll('article', 'item'):
+                results.append(article.header.a['href'])
+        except:
+            pass
+        logging.info('Found ' + str(len(results)) + ' links')
         new_pastes = []
         if not self.ref_id:
             results = results[:60]
@@ -53,5 +57,6 @@ class Pastebin_ru(Site):
         for entry in new_pastes[::-1]:
             logging.info('Adding URL: ' + entry.url)
             self.put(entry)
+
     def get_paste_text(self, paste):
         return helper.download(paste.url)

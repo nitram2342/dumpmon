@@ -10,6 +10,7 @@ import datetime
 
 
 class SafebinPaste(Paste):
+
     def __init__(self, id):
         self.id = id
         self.headers = None
@@ -18,6 +19,7 @@ class SafebinPaste(Paste):
 
 
 class Safebin(Site):
+
     def __init__(self, last_id=None):
         if not last_id:
             last_id = None
@@ -26,34 +28,33 @@ class Safebin(Site):
         self.sleep = SLEEP_PASTEBIN
         super(Safebin, self).__init__()
 
-
-
     def update(self):
         '''update(self) - Fill Queue with new Safebin IDs'''
         logging.info('Retrieving Safebin ID\'s')
-        #results = BeautifulSoup(helper.download(self.BASE_URL + '/archive')).find_all(
-        #    lambda tag: tag.name == 'td' and tag.a and '/archive/' not in tag.a['href'] and tag.a['href'][1:])
+        # results = BeautifulSoup(helper.download(self.BASE_URL + '/archive')).find_all(
+        # lambda tag: tag.name == 'td' and tag.a and '/archive/' not in
+        # tag.a['href'] and tag.a['href'][1:])
         url = self.BASE_URL + '/?archive'
         soup = BeautifulSoup(helper.download(url))
-        snip = soup.find('table',{'class':'archive'})
+        snip = soup.find('table', {'class': 'archive'})
         results = []
         temp = []
         try:
             for tr in snip.findAll('tr'):
-	            for td in tr.findAll('td'):
-		            try:
-			            temp.append(td.img['title'])
-		            except:
-			            try:
-			    	        temp.append(td.a['href'],td.a['title'])
-			            except:
-			    	        pass
+                for td in tr.findAll('td'):
+                    try:
+                        temp.append(td.img['title'])
+                    except:
+                        try:
+                            temp.append(td.a['href'], td.a['title'])
+                        except:
+                            pass
             for item in temp:
-	            if len(item) > 1: # and datetime.datetime.strptime(','.join(item[1].split(',')[0:2]), '%A %B %d, %Y') > datetime.datetime.today() - timedelta(days=1):
-	        	    results.append(item[0])
+                if len(item) > 1:  # and datetime.datetime.strptime(','.join(item[1].split(',')[0:2]), '%A %B %d, %Y') > datetime.datetime.today() - timedelta(days=1):
+                    results.append(item[0])
         except:
             pass
-	logging.info('Found ' + str(len(results)) + ' links')
+        logging.info('Found ' + str(len(results)) + ' links')
         new_pastes = []
         if not self.ref_id:
             results = results[:60]
@@ -66,5 +67,6 @@ class Safebin(Site):
         for entry in new_pastes[::-1]:
             logging.info('Adding URL: ' + entry.url)
             self.put(entry)
+
     def get_paste_text(self, paste):
         return helper.download(paste.url)
