@@ -17,24 +17,24 @@ r = requests.Session()
 
 
 def download(url, headers=None):
-    response = None
+    response = ''
     if not headers:
         headers = None
     if headers:
         r.headers.update(headers)
 	tries = 0
 	while True:
-        try:
-            response = r.get(url).text
-        except requests.ConnectionError:
-            tries += 1
-            logging.warn('[!] Critical Error - Cannot connect to site')
-            sleep(2)
-            logging.warn('[!] Retrying...')
-            #response = download(url)
-            if tries <= 5:
-                continue
-        break
+            try:
+                response = r.get(url).text
+            except requests.ConnectionError:
+                tries += 1
+                logging.warn('[!] Critical Error - Cannot connect to site')
+                sleep(2)
+                logging.warn('[!] Retrying...')
+                #response = download(url)
+                if tries <= 5:
+                    continue
+            break
     return response
 
 def rotate():

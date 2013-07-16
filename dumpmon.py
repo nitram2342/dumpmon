@@ -65,14 +65,21 @@ def monitor():
     """for thread in (pastebin_thread, slexy_thread, pastie_thead, pastebin_ru_thread, nopaste_thread, safebin_thread):
         thread.daemon = True
         thread.start()"""
-    for thread in (pastebin_thread, slexy_thread, pastie_thead, pastebin_ru_thread, nopaste_thread):
+    for thread in (pastebin_thread, slexy_thread, pastie_thead, pastebin_ru_thread, nopaste_thread, safebin_thread):
         thread.daemon = True
         thread.start()
 
     # Let threads run
     try:
+	i = 0
         while(1):
+            i += 1
             sleep(5)
+            if i == 6:
+		for thread in (pastebin_thread, slexy_thread, pastie_thead, pastebin_ru_thread, nopaste_thread):
+			if not thread.isAlive:
+				thread.daemon = True
+				thread.start()
     except KeyboardInterrupt:
         logging.warn('Stopped.')
 
