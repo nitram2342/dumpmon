@@ -45,10 +45,11 @@ class Nopaste(Site):
                 if '#' not in temp:
                     results.append(temp)
         except:
-            print 'some error downloading/parsing Nopaste at ' + str(datetime.datetime.now())
+            #print 'some error downloading/parsing Nopaste at ' + str(datetime.datetime.now())
             #outfile = open('Nopaste.error','w')
             #outfile.write(soup.prettify())
             #outfile.close()
+            logging.info('some error downloading/parsing Nopaste at ' + str(datetime.datetime.now())
         new_pastes = []
         if not self.ref_id:
             results = results[:60]

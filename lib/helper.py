@@ -35,7 +35,10 @@ def download(url, headers=None):
                 if tries <= 5:
                     continue
             break
-    return response
+    if response and response is not None:
+        return response
+    else:
+        return ''
 
 def rotate():
 	if os.path.exists(settings.log_file):
