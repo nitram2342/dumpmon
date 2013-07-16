@@ -48,4 +48,4 @@ class Pastie(Site):
             self.put(entry)
 
     def get_paste_text(self, paste):
-        return BeautifulSoup(helper.download(paste.url))  # .pre.text
+        return helper.download(paste.url)  # .pre.text
