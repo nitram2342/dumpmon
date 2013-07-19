@@ -55,10 +55,12 @@ class Paste(object):
         self.num_md5wp = len(self.md5wp)
         self.userpass = regexes['userpass'].findall(self.text)
         self.num_userpass = len(self.userpass)
-        #self.phonenum = regexes['phonenum'].findall(self.text)
-        #self.num_phonenum = len(self.phonenum)
-        if self.num_hashes > 0 or self.num_sha > 0:
-            self.eh = round(self.num_emails / float(self.num_hashes + self.num_sha), 2)
+        self.phonenum = regexes['phonenum'].findall(self.text)
+        self.num_phonenum = len(self.phonenum)
+	self.creditcard = regexes['credit_card'].findall(self.text)
+	self.num_creditcard = len(self.creditcard)
+        if self.num_hashes > 0 or self.num_sha > 0 or self.num_md5wp > 0:
+            self.eh = round(self.num_emails / float(self.num_hashes + self.num_sha + self.num_md5wp), 2)
         else:
             self.eh = 0
         if self.num_emails > 0:
@@ -88,6 +90,8 @@ class Paste(object):
         #elif self.num_phonenum > settings.EMAIL_THRESHOLD:
 	    #   self.type = 'phone_leak'
         #if regexes['juniper'].search(self.text): self.type = 'Juniper'
+        elif self.num_creditcard > 10:
+            self.type = 'credit_card_leak'
         for regex in regexes['banlist']:
             if regex.search(self.text):
                 self.type = 'not_int'

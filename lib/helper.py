@@ -97,7 +97,9 @@ def build_tweet(paste):
             if paste.num_twitter > 0:
                 tweet += ' TA: ' + str(paste.num_twitter)
             if paste.num_userpass > 0:
-				tweet += ' U/P: ' + str(paste.num_userpass)
+                tweet += ' U/P: ' + str(paste.num_userpass)
+            if paste.num_creditcard > 0:
+                tweet += ' CC: ' + str(paste.num_creditcard)
             #if float(mailhash) >= 0.30 and float(mailhash) <= 3: #or num_userpass > settings.EMAIL_THRESHOLD:
             #    mailarr = []
             #    for mail in paste.emails:
