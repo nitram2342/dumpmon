@@ -16,12 +16,24 @@ import bitlyapi
 
 #r = requests.Session()
 
-def download(url):
+def download(url, headers=None):
     response = ''
+    body = ''
     tries = 0
+    if headers is not None:
+        req = urllib2.Request(url)
+        req.add_header(headers[0],headers[1])
     while True:
         try:
-            response = urllib2.urlopen(url).read()
+            if headers is not None:
+                response = urllib2.urlopen(req)
+            else:
+                response = urllib2.urlopen(url)
+            if str(response.getcode)[0] == '3' or response.geturl() != url:
+                logging.warn('[!] Unexpected redirect, from ' + url + ' to ' + response.geturl() +', pass')
+                body = None
+		break
+            body = response.read()
         except:
             tries += 1
             logging.warn('[!] Critical Error - Cannot connect to site')
@@ -30,8 +42,8 @@ def download(url):
             if tries <= 5:
                 continue
         break
-    if response and response is not None:
-        return response
+    if body and body is not None:
+        return body
     else:
         return ''
 

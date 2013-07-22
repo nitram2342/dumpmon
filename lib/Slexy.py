@@ -12,7 +12,7 @@ class SlexyPaste(Paste):
 
     def __init__(self, id):
         self.id = id
-        self.headers = {'Referer': 'http://slexy.org/view/' + self.id}
+        self.headers = ('Referer', 'http://slexy.org/view/' + self.id)
         self.url = 'http://slexy.org/raw/' + self.id
         super(SlexyPaste, self).__init__()
 
@@ -47,4 +47,4 @@ class Slexy(Site):
             self.put(entry)
 
     def get_paste_text(self, paste):
-        return helper.download(paste.url)  # , paste.headers)
+        return helper.download(paste.url, paste.headers)
