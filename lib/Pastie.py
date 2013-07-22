@@ -32,7 +32,7 @@ class Pastie(Site):
         logging.info('Retrieving Pastie ID\'s')
         results = [tag for tag in BeautifulSoup(helper.download(
             self.BASE_URL + '/pastes')).find_all('p', 'link') if tag.a]
-            logging.info('Found ' + str(len(results)) + ' links')
+        logging.info('Found ' + str(len(results)) + ' links')
         new_pastes = []
         if not self.ref_id:
             results = results[:60]

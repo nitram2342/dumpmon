@@ -14,7 +14,7 @@ import logging
 import bitlyapi
 
 
-r = requests.Session()
+#r = requests.Session()
 
 def download(url):
     response = ''
@@ -41,8 +41,8 @@ def old_download(url, headers=None):
         headers = None
     if headers:
         r.headers.update(headers)
-	    tries = 0
-	    while True:
+	tries = 0
+	while True:
             try:
                 response = r.get(url).text
             except requests.ConnectionError:
