@@ -134,8 +134,8 @@ def build_tweet(paste):
 	#elif paste.type == 'phone_leak':
 	#    tweet += ' Found ' + str(paste.num_phonenum) + ' possibile phone numbers'
         #tweet += ' #infoleak'
-    if paste.num_emails > 0:
-        print(paste.emails)
+    #if paste.num_emails > 0:
+    #    print(paste.emails)
     return tweet#,paste.type
 
 def shortener(url):

@@ -91,7 +91,7 @@ class Paste(object):
 	    #   self.type = 'phone_leak'
         #if regexes['juniper'].search(self.text): self.type = 'Juniper'
         elif self.num_creditcard > 10:
-            self.type = 'credit_card_leak'
+            self.type = 'db_dump'
         for regex in regexes['banlist']:
             if regex.search(self.text):
                 self.type = 'not_int'
