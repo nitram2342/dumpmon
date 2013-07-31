@@ -104,7 +104,7 @@ class Site(object):
                                 'num_shadow' : paste.shadow,
                                 'md5wp' : paste.md5wp,
                                 'num_md5wp' : paste.num_md5wp,
-                                'credit_card' : paste.credit_card,
+                                'creditcard' : paste.creditcard,
                                 'ssn' : paste.ssn
                                })
                     if tweet:
