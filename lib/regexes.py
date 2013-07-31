@@ -23,6 +23,7 @@ regexes = {
     'twitter' : re.compile('(^@([A-Za-z0-9_]+))|(twitter.com/\w+)'),
     'phonenum' : re.compile('(\d{1,4}[\s|-|/]?\d{1,4})+?'), #first stub
     'credit_card': re.compile('[\||:|;|\s]+?(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})[\s|\||:|;]+?'),
+    'ssn' : re.compile([([a-zA-Z]{6}[0-9]{2}[a-zA-Z][0-9]{2}[a-zA-Z][0-9]{3}[a-zA-Z])|(\d{3}-\d{2}-\d{4})]
     'db_keywords': [
     re.compile(
     r'((customers?|email|users?|members?|acc(?:oun)?ts?)([-_|/\s]?(address|name|id[^")a-zA-Z0-9_]|[-_:|/\\])))', re.I),

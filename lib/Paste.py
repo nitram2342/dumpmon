@@ -23,7 +23,11 @@ class Paste(object):
         self.text = None
         self.type = None
         self.sites = None
+        self.creditcard = None
+	self.num_creditcard = 0
         self.db_keywords = 0.0
+        self.ssn = None
+	self.num_ssn = 0
 
     def match(self):
         '''
@@ -59,6 +63,8 @@ class Paste(object):
         self.num_phonenum = len(self.phonenum)
 	self.creditcard = regexes['credit_card'].findall(self.text)
 	self.num_creditcard = len(self.creditcard)
+	self.ssn = regexes['ssn'].findall(self.text)
+	self.num_ssn = len(self.ssn)
         if self.num_hashes > 0 or self.num_sha > 0 or self.num_md5wp > 0:
             self.eh = round(self.num_emails / float(self.num_hashes + self.num_sha + self.num_md5wp), 2)
         else:
@@ -92,6 +98,8 @@ class Paste(object):
         #if regexes['juniper'].search(self.text): self.type = 'Juniper'
         elif self.num_creditcard > 10:
             self.type = 'db_dump'
+        elif self.num_ssn > 10:
+	    self.type = 'dox?'
         for regex in regexes['banlist']:
             if regex.search(self.text):
                 self.type = 'not_int'
