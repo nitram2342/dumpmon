@@ -14,7 +14,7 @@ class SafebinPaste(Paste):
     def __init__(self, id):
         self.id = id
         self.headers = None
-        self.url = 'http://safebin.net' + self.id
+        self.url = 'http://safebin.net/dl=' + self.id
         super(SafebinPaste, self).__init__()
 
 
@@ -44,7 +44,7 @@ class Safebin(Site):
 		td = tr.findAll('td')
 		if len(td) > 0:
 		    if len(td[0]) < 1:
-			results.append(td[1].a['href'])
+			results.append(td[1].a['href'][1:])
         
         #temp = []
         #try:
