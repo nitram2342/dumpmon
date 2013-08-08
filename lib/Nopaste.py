@@ -14,7 +14,7 @@ class NopastePaste(Paste):
     def __init__(self, id):
         self.id = id
         self.headers = None
-        self.url = 'http://nopaste.me/raw' + self.id + '.txt'
+        self.url = 'http://nopaste.me/raw/' + self.id + '.txt'
         super(NopastePaste, self).__init__()
 
 
@@ -46,7 +46,7 @@ class Nopaste(Site):
                 except:
                     pass
                 if '#' not in temp:
-                    results.append(temp)
+                    results.append(temp.split('/')[-1])
         except:
             # print 'some error downloading/parsing Nopaste at ' + str(datetime.datetime.now())
             # outfile = open('Nopaste.error','w')
