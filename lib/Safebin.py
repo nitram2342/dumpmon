@@ -38,26 +38,34 @@ class Safebin(Site):
         soup = BeautifulSoup(helper.download(url))
         snip = soup.find('table', {'class': 'archive'})
         results = []
-        temp = []
-        try:
-            for tr in snip.findAll('tr'):
-                for td in tr.findAll('td'):
-                    try:
-                        temp.append(td.img['title'])
-                    except:
-                        try:
-                            temp.append(td.a['href'], td.a['title'])
-                        except:
-                            pass
-            for item in temp:
-                if len(item) > 1:  # and datetime.datetime.strptime(','.join(item[1].split(',')[0:2]), '%A %B %d, %Y') > datetime.datetime.today() - timedelta(days=1):
-                    results.append(item[0])
-        except:
-            pass
+        
+	for tr in snip.findAll('tr'):
+	    td = tr.findAll('td')
+	    if len(td) > 0:
+		if len(td[0]) < 1:
+		    results.append(td[1].a['href'])
+        
+        #temp = []
+        #try:
+        #    for tr in snip.findAll('tr'):
+        #        for td in tr.findAll('td'):
+        #            try:
+        #                temp.append(td.img['title'])
+        #            except:
+        #                try:
+        #                    temp.append(td.a['href'], td.a['title'])
+        #                except:
+        #                    pass
+        #    for item in temp:
+        #        if len(item) > 1:  # and datetime.datetime.strptime(','.join(item[1].split(',')[0:2]), '%A %B %d, %Y') > datetime.datetime.today() - timedelta(days=1):
+	#	    if item[0] != 'P':
+	#		results.append(item[0])
+        #except:
+        #    pass
         logging.info('Found ' + str(len(results)) + ' links')
         new_pastes = []
         if not self.ref_id:
-            results = results[:60]
+            results = results[:20]
         for entry in results:
             paste = SafebinPaste(entry)
             # Check to see if we found our last checked URL
