@@ -14,7 +14,7 @@ class NopastePaste(Paste):
     def __init__(self, id):
         self.id = id
         self.headers = None
-        self.url = self.id
+        self.url = 'http://nopaste.me/raw' + self.id + '.txt'
         super(NopastePaste, self).__init__()
 
 
