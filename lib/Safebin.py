@@ -39,11 +39,12 @@ class Safebin(Site):
         snip = soup.find('table', {'class': 'archive'})
         results = []
         
-	for tr in snip.findAll('tr'):
-	    td = tr.findAll('td')
-	    if len(td) > 0:
-		if len(td[0]) < 1:
-		    results.append(td[1].a['href'])
+        if snip is not None:
+	    for tr in snip.findAll('tr'):
+		td = tr.findAll('td')
+		if len(td) > 0:
+		    if len(td[0]) < 1:
+			results.append(td[1].a['href'])
         
         #temp = []
         #try:
