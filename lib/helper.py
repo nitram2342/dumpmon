@@ -145,6 +145,8 @@ def build_tweet(paste):
             tweet += ' Dionaea Honeypot Log'
         elif paste.type == 'imei_leak':
             tweet += ' Found ' + str(paste.num_imei) + ' possible IMEIs'
+        elif paste.type == 'unix_shadow':
+	    tweet += ' Found possible UNIX shadows file'
 	#elif paste.type == 'phone_leak':
 	#    tweet += ' Found ' + str(paste.num_phonenum) + ' possibile phone numbers'
         #tweet += ' #infoleak'

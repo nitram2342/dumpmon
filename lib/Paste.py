@@ -100,6 +100,8 @@ class Paste(object):
             self.type = 'db_dump'
         elif self.num_ssn > 10:
 	    self.type = 'dox?'
+	elif regexes['shadow'].search(self.text):
+	    self.type = 'unix_shadow'
         for regex in regexes['banlist']:
             if regex.search(self.text):
                 self.type = 'not_int'
