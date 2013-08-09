@@ -81,7 +81,7 @@ class Paste(object):
                 logging.debug('\t[-] ' + regex.search(self.text).group(1))
                 self.db_keywords -= round(1.25 * (
                     1/float(len(regexes['db_keywords']))), 2)
-        if (self.num_emails >= settings.EMAIL_THRESHOLD) or ((self.num_emails >= settings.EMAIL_THRESHOLD) and ((self.num_hashes >= settings.HASH_THRESHOLD) or (self.num_sha >= settings.HASH_THRESHOLD) or (self.num_md5wp >= settings.HASH_THRESHOLD))) or (self.db_keywords >= settings.DB_KEYWORDS_THRESHOLD):
+        if (self.num_emails >= settings.EMAIL_THRESHOLD) or ((self.num_emails >= settings.EMAIL_THRESHOLD/2) and ((self.num_hashes >= settings.HASH_THRESHOLD) or (self.num_sha >= settings.HASH_THRESHOLD) or (self.num_md5wp >= settings.HASH_THRESHOLD))) or (self.db_keywords >= settings.DB_KEYWORDS_THRESHOLD):
             self.type = 'db_dump'
         elif self.num_userpass >= settings.EMAIL_THRESHOLD:
 	        self.type = 'db_dump'
