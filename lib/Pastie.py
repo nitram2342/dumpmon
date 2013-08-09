@@ -30,8 +30,11 @@ class Pastie(Site):
     def update(self):
         '''update(self) - Fill Queue with new Pastie IDs'''
         logging.info('Retrieving Pastie ID\'s')
-        results = [tag for tag in BeautifulSoup(helper.download(
-            self.BASE_URL + '/pastes')).find_all('p', 'link') if tag.a]
+        try:
+	    results = [tag for tag in BeautifulSoup(helper.download(
+		self.BASE_URL + '/pastes')).find_all('p', 'link') if tag.a]
+	except:
+	    logging.warning('Troubles retrieving Pastie links')
         logging.info('Found ' + str(len(results)) + ' links')
         new_pastes = []
         if not self.ref_id:
