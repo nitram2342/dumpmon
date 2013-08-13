@@ -104,7 +104,7 @@ def build_tweet(paste):
             if paste.num_hashes or paste.num_sha > 0:
                 tweet += ' Hashes: ' + str(paste.num_hashes + paste.num_sha)
             if paste.num_hashes > 0 and paste.num_emails > 0:
-                mailhash = str(round(paste.num_emails / float(paste.num_hashes + paste.num_sha), 2))
+                mailhash = str(round(paste.num_emails / float(paste.total_hashes), 2))
                 tweet += ' E/H: ' + mailhash
             if paste.num_twitter > 0:
                 tweet += ' TA: ' + str(paste.num_twitter)
@@ -113,7 +113,7 @@ def build_tweet(paste):
             if paste.num_creditcard > 0:
                 tweet += ' CC: ' + str(paste.num_creditcard)
             if paste.num_ssn > 0:
-		tweet += 'SSN: ' + str(paste.num_ssn)
+		tweet += ' SSN: ' + str(paste.num_ssn)
             #if float(mailhash) >= 0.30 and float(mailhash) <= 3: #or num_userpass > settings.EMAIL_THRESHOLD:
             #    mailarr = []
             #    for mail in paste.emails:

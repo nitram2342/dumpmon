@@ -3,7 +3,7 @@ from .Paste import Paste
 from bs4 import BeautifulSoup
 from . import helper
 from time import sleep
-from settings import SLEEP_PASTEBIN
+from settings import SLEEP_SLEXY
 from twitter import TwitterError
 import logging
 import datetime
@@ -25,7 +25,7 @@ class Nopaste(Site):
             last_id = None
         self.ref_id = last_id
         self.BASE_URL = 'http://nopaste.me'
-        self.sleep = SLEEP_PASTEBIN
+        self.sleep = SLEEP_SLEXY
         super(Nopaste, self).__init__()
 
     def update(self):
