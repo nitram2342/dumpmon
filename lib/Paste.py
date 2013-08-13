@@ -63,10 +63,10 @@ class Paste(object):
         self.num_sha1crypt = len(self.sha1crypt)
         self.md5crypt = regexes['md5crypt'].findall(self.text)
         self.num_md5crypt = len(self.md5crypt)
-        self.sunmd5 = regexes.['sunmd5'].findall(self.text)
+        self.sunmd5 = regexes['sun_md5'].findall(self.text)
         self.num_sunmd5 = len(self.sunmd5)
         self.totalhashes = self.num_sunmd5 + self.num_hashes + self.num_md5crypt + self.num_md5wp + self.num_shadow +
-	    + self.num_sha + self.num_sha1crypt
+	    self.num_sha + self.num_sha1crypt
         self.userpass = regexes['userpass'].findall(self.text)
         self.num_userpass = len(self.userpass)
         self.phonenum = regexes['phonenum'].findall(self.text)
@@ -93,7 +93,7 @@ class Paste(object):
                     1/float(len(regexes['db_keywords']))), 2)
         #if (self.num_emails >= settings.EMAIL_THRESHOLD) or ((self.num_emails >= settings.EMAIL_THRESHOLD/2) and ((self.num_hashes >= settings.HASH_THRESHOLD) or (self.num_sha >= settings.HASH_THRESHOLD) or (self.num_md5wp >= settings.HASH_THRESHOLD) or
         #(self.sha1crypt)) or (self.db_keywords >= settings.DB_KEYWORDS_THRESHOLD):
-        if (self.num_emails >= settings.EMAIL_THRESHOLD) or ((self.num_emails >= settings.EMAIL_THRESHOLD/2) and (self.totalhashes > HASH_THRESHOLD)) or (self.db_keywords >= settings.DB_KEYWORDS_THRESHOLD):
+        if (self.num_emails >= settings.EMAIL_THRESHOLD) or ((self.num_emails >= settings.EMAIL_THRESHOLD/2) and (self.totalhashes > settings.HASH_THRESHOLD)) or (self.db_keywords >= settings.DB_KEYWORDS_THRESHOLD):
             self.type = 'db_dump'
         elif self.num_userpass >= settings.EMAIL_THRESHOLD:
 	        self.type = 'db_dump'
