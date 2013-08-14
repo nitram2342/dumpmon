@@ -14,7 +14,7 @@ class SafebinPaste(Paste):
     def __init__(self, id):
         self.id = id
         self.headers = ('Referer', 'http://safebin.net/' + self.id)
-        self.url = 'http://safebin.net/dl=' + self.id
+        self.url = 'http://safebin.net/?dl=' + self.id
         super(SafebinPaste, self).__init__()
 
 

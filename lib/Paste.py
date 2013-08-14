@@ -93,7 +93,7 @@ class Paste(object):
                     1/float(len(regexes['db_keywords']))), 2)
         #if (self.num_emails >= settings.EMAIL_THRESHOLD) or ((self.num_emails >= settings.EMAIL_THRESHOLD/2) and ((self.num_hashes >= settings.HASH_THRESHOLD) or (self.num_sha >= settings.HASH_THRESHOLD) or (self.num_md5wp >= settings.HASH_THRESHOLD) or
         #(self.sha1crypt)) or (self.db_keywords >= settings.DB_KEYWORDS_THRESHOLD):
-        if (self.num_emails >= settings.EMAIL_THRESHOLD) or ((self.num_emails >= settings.EMAIL_THRESHOLD/2) and (self.totalhashes > settings.HASH_THRESHOLD)) or (self.db_keywords >= settings.DB_KEYWORDS_THRESHOLD):
+        if (self.num_emails >= settings.EMAIL_THRESHOLD) or ((self.num_emails >= settings.EMAIL_THRESHOLD/2) and (self.total_hashes > settings.HASH_THRESHOLD)) or (self.db_keywords >= settings.DB_KEYWORDS_THRESHOLD):
             self.type = 'db_dump'
         elif self.num_userpass >= settings.EMAIL_THRESHOLD:
 	        self.type = 'db_dump'
