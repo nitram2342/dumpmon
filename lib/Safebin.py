@@ -13,7 +13,7 @@ class SafebinPaste(Paste):
 
     def __init__(self, id):
         self.id = id
-        self.headers = None
+        self.headers = ('Referer', 'http://safebin.net/' + self.id)
         self.url = 'http://safebin.net/dl=' + self.id
         super(SafebinPaste, self).__init__()
 
@@ -44,7 +44,10 @@ class Safebin(Site):
 		td = tr.findAll('td')
 		if len(td) > 0:
 		    if len(td[0]) < 1:
-			results.append(td[1].a['href'][1:])
+			try:
+			    results.append(td[1].a['href'][1:])
+			except:
+			    logging.warning('troubles scraping Safebin')
         
         #temp = []
         #try:
@@ -78,4 +81,4 @@ class Safebin(Site):
             self.put(entry)
 
     def get_paste_text(self, paste):
-        return helper.download(paste.url)
+        return helper.download(paste.url,paste.headers)

@@ -65,7 +65,7 @@ class Paste(object):
         self.num_md5crypt = len(self.md5crypt)
         self.sunmd5 = regexes['sun_md5'].findall(self.text)
         self.num_sunmd5 = len(self.sunmd5)
-        self.totalhashes = self.num_sunmd5 + self.num_hashes + self.num_md5crypt + self.num_md5wp + self.num_shadow +
+        self.tota_lhashes = self.num_sunmd5 + self.num_hashes + self.num_md5crypt + self.num_md5wp + self.num_shadow +
 	    self.num_sha + self.num_sha1crypt
         self.userpass = regexes['userpass'].findall(self.text)
         self.num_userpass = len(self.userpass)
