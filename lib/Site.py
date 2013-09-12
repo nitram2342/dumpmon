@@ -1,10 +1,10 @@
 from Queue import Queue
 import datetime
-import requests
+#import requests
 import time
 import re
 from pymongo import MongoClient
-from requests import ConnectionError
+#from requests import ConnectionError
 from twitter import TwitterError
 from settings import USE_DB, DB_HOST, DB_PORT
 import logging
