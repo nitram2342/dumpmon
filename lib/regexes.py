@@ -5,7 +5,7 @@ regexes = {
     #'mail-pass' : re.compile('^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\s*?[:|\||/]\s*?\w[4-50]\n'),
     #'userpass' : re.compile('^\w{4-50}\s*?[;|:|\||/|\t]+?\s*?\w{4-50}[:|\||/\n|\s]?'), try with a new one
     #'userpass' : re.compile('\w*?\s*?[;|:|\||/|\s]*?\s*?\w*?@\w*?[:|\||/|\s]?'),
-    'userpass' : re.compile('[A-Z0-9._%+-]+@[A-Z0-9.-]*?\.?[A-Z]{2,4}\s*?[;|:|\||\s]+?\s*?\w{5,}', re.I),
+    'userpass' : re.compile('[A-Z0-9._%+-]+@[A-Z0-9.-]*?\.?[A-Z]{2,4}\s*?[;|:|\||\s|,]+?\s*?\w{5,}', re.I),
     #'ssn' : re.compile(r'\d{3}-?\d{2}-?\d{4}'),
     'hash32': re.compile('([A-F\d]{32})', re.I),
     'sha1' : re.compile('[0-9a-fA-F]{40}'),

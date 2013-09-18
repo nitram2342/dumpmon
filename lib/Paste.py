@@ -108,10 +108,10 @@ class Paste(object):
         #elif self.num_phonenum > settings.EMAIL_THRESHOLD:
 	    #   self.type = 'phone_leak'
         #if regexes['juniper'].search(self.text): self.type = 'Juniper'
-        elif self.num_creditcard > 10:
+        elif self.num_creditcard > 5:
             self.type = 'db_dump'
-        elif self.num_ssn > 10:
-	    self.type = 'dox?'
+        #elif self.num_ssn > 10:
+	#    self.type = 'dox?'
 	elif self.num_shadow > 0:
 	    lines = self.text.split('\n')[:50]
 	    ok = 0
