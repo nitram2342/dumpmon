@@ -37,9 +37,9 @@ def download(url, headers=None):
         except:
             tries += 1
             logging.warn('[!] Critical Error - Cannot connect to site')
-            sleep(2)
+            sleep(5)
             logging.warn('[!] Retrying...')
-            if tries <= 5:
+            if tries <= 4:
                 continue
         break
     if body and body is not None:
@@ -112,6 +112,8 @@ def build_tweet(paste):
                 tweet += ' U/P: ' + str(paste.num_userpass)
             if paste.num_creditcard > 0:
                 tweet += ' CC: ' + str(paste.num_creditcard)
+            if paste.num_cc_dump > 0:
+		tweet += ' CCdump ' + str(paste.num_cc_dump)
             if paste.num_ssn > 0:
 		tweet += ' SSN: ' + str(paste.num_ssn)
             #if float(mailhash) >= 0.30 and float(mailhash) <= 3: #or num_userpass > settings.EMAIL_THRESHOLD:

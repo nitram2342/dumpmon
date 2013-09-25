@@ -28,6 +28,8 @@ class Paste(object):
         self.db_keywords = 0.0
         self.ssn = None
 	self.num_ssn = 0
+	self.cc_dump = 0
+	self.num_cc_dump = 0
 
     def match(self):
         '''
@@ -75,6 +77,8 @@ class Paste(object):
 	self.num_creditcard = len(self.creditcard)
 	self.ssn = regexes['ssn'].findall(self.text)
 	self.num_ssn = len(self.ssn)
+	self.cc_dump = regexes['cc_dump'].findall(self.text)
+	self.num_cc_dump = len(self.cc_dump)
         if self.num_hashes > 0 or self.num_sha > 0 or self.num_md5wp > 0:
             self.eh = round(self.num_emails / float(self.num_hashes + self.num_sha + self.num_md5wp), 2)
         else:
@@ -108,7 +112,7 @@ class Paste(object):
         #elif self.num_phonenum > settings.EMAIL_THRESHOLD:
 	    #   self.type = 'phone_leak'
         #if regexes['juniper'].search(self.text): self.type = 'Juniper'
-        elif self.num_creditcard > 5:
+        elif self.num_creditcard > 5 or self.num_cc_dump > 5:
             self.type = 'db_dump'
         #elif self.num_ssn > 10:
 	#    self.type = 'dox?'

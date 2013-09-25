@@ -28,6 +28,7 @@ regexes = {
     'md5crypt' : re.compile('\$1\$[\./0-9A-Za-z]*?\$[\./0-9A-Za-z]{22}'),
     'sha1crypt' : re.compile('\$sha1\$\d+?\$[\./0-9A-Za-z]*?\$[\./0-9A-Za-z]{28}'),
     'sun_md5' : re.compile('\$md5(,rounds=\d+?)?\$[\./0-9A-Za-z]+?\$\$[\./0-9A-Za-z]{22}'),
+    'cc_dump' : re.compile('[%|;]?[a-zA-Z]?[0-9]{16,19}[\^|=](.+?[\^|=])?[0-9]{4}.+?\?'),
     'db_keywords': [
     re.compile(
     r'((customers?|email|users?|members?|acc(?:oun)?ts?)([-_|/\s]?(address|name|id[^")a-zA-Z0-9_]|[-_:|/\\])))', re.I),
