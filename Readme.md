@@ -1,16 +1,14 @@
-![Dumpmon Logo](assets/logo-small.png?raw=true)
-# dumpmon
 ## Twitter-bot which monitors paste sites for interesting content
 
-For more overview, check out the blog post [here.](http://raidersec.blogspot.com/2013/03/introducing-dumpmon-twitter-bot-that.html)
-
 ## Dependencies
-	twitter library - https://pypi.python.org/pypi/twitter
-	$ pip install beautifulsoup4
-	$ pip install requests
-	$ pip install pymongo <-- for MongoDB support (must have mongod running!)
 
-Next, edit the settings.py to include your Twitter application settings.
+        # pip install python-twitter
+	# pip install beautifulsoup4
+	# pip install requests
+	# pip install pymongo <-- for MongoDB support (must have mongod running!) -->
+	# pip install bitlyapi <-- to use Bit.ly url shortening -->
+
+Next, edit the settings.py to include your Twitter application settings and bit.ly api credentials.
 
 ## Setting up MongoDB support
 dumpmon has the ability to cache pastes using MongoDB. Simply setup an instance of mongod,

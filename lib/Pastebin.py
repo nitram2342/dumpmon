@@ -9,6 +9,7 @@ import logging
 
 
 class PastebinPaste(Paste):
+
     def __init__(self, id):
         self.id = id
         self.headers = None
@@ -17,6 +18,7 @@ class PastebinPaste(Paste):
 
 
 class Pastebin(Site):
+
     def __init__(self, last_id=None):
         if not last_id:
             last_id = None
@@ -28,11 +30,16 @@ class Pastebin(Site):
     def update(self):
         '''update(self) - Fill Queue with new Pastebin IDs'''
         logging.info('Retrieving Pastebin ID\'s')
-        results = BeautifulSoup(helper.download(self.BASE_URL + '/archive')).find_all(
-            lambda tag: tag.name == 'td' and tag.a and '/archive/' not in tag.a['href'] and tag.a['href'][1:])
+        results = []
+	try:
+            results = BeautifulSoup(helper.download(self.BASE_URL + '/archive')).find_all(
+                lambda tag: tag.name == 'td' and tag.a and '/archive/' not in tag.a['href'] and tag.a['href'][1:])
+            logging.info('Found ' + str(len(results)) + ' links')
+        except:
+            logging.warning('troubles scraping Pastebin, pass')
         new_pastes = []
         if not self.ref_id:
-            results = results[:60]
+            results = results[:30]
         for entry in results:
             paste = PastebinPaste(entry.a['href'][1:])
             # Check to see if we found our last checked URL
@@ -42,5 +49,6 @@ class Pastebin(Site):
         for entry in new_pastes[::-1]:
             logging.info('Adding URL: ' + entry.url)
             self.put(entry)
+
     def get_paste_text(self, paste):
         return helper.download(paste.url)

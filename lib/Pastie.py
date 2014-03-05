@@ -9,6 +9,7 @@ import logging
 
 
 class PastiePaste(Paste):
+
     def __init__(self, id):
         self.id = id
         self.headers = None
@@ -17,6 +18,7 @@ class PastiePaste(Paste):
 
 
 class Pastie(Site):
+
     def __init__(self, last_id=None):
         if not last_id:
             last_id = None
@@ -28,8 +30,13 @@ class Pastie(Site):
     def update(self):
         '''update(self) - Fill Queue with new Pastie IDs'''
         logging.info('Retrieving Pastie ID\'s')
-        results = [tag for tag in BeautifulSoup(helper.download(
-            self.BASE_URL + '/pastes')).find_all('p', 'link') if tag.a]
+        results = []
+        try:
+	    results = [tag for tag in BeautifulSoup(helper.download(
+		self.BASE_URL + '/pastes')).find_all('p', 'link') if tag.a]
+	except:
+	    logging.warning('Troubles retrieving Pastie links')
+        logging.info('Found ' + str(len(results)) + ' links')
         new_pastes = []
         if not self.ref_id:
             results = results[:60]
@@ -45,4 +52,4 @@ class Pastie(Site):
             self.put(entry)
 
     def get_paste_text(self, paste):
-        return BeautifulSoup(helper.download(paste.url)).pre.text
+        return helper.download(paste.url)  # .pre.text
