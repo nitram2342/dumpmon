@@ -19,7 +19,7 @@ from lib.helper import log
 from lib.helper import rotate
 from time import sleep
 from twitter import Twitter, OAuth
-from settings import CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET, log_file
+from settings import CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET, log_file, USE_TWITTER
 import threading
 import logging
 
@@ -41,10 +41,12 @@ def monitor():
     logging.basicConfig(
         format='%(asctime)s [%(levelname)s] %(message)s', filename=log_file, level=level)
     logging.info('Monitoring...')
-    bot = Twitter(
-        auth=OAuth(ACCESS_TOKEN, ACCESS_TOKEN_SECRET,
-                   CONSUMER_KEY, CONSUMER_SECRET)
-    )
+    if USE_TWITTER:
+        bot = Twitter(
+            auth=OAuth(ACCESS_TOKEN, ACCESS_TOKEN_SECRET,
+                       CONSUMER_KEY, CONSUMER_SECRET))
+    else:
+        bot = None
     # Create lock for both output log and tweet action
     log_lock = threading.Lock()
     tweet_lock = threading.Lock()

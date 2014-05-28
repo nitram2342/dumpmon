@@ -5,13 +5,14 @@ DB_HOST = 'localhost'
 DB_PORT = 27017
 
 # Twitter Settings
+USE_TWITTER = False
 CONSUMER_KEY = 'your_consumer_key'
 CONSUMER_SECRET = 'your_consumer_secret'
 ACCESS_TOKEN = 'your_access_token'
 ACCESS_TOKEN_SECRET = 'your_access_token_secret'
 
 #bit.ly settings
-USE_BITLY = True
+USE_BITLY = False
 BITLY_USER = 'your bit.ly username'
 BITLY_KEY = 'your bit.ly api_key'
 

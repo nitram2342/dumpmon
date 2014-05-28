@@ -107,7 +107,7 @@ class Site(object):
                                 'creditcard' : paste.creditcard,
                                 'ssn' : paste.ssn
                                })
-                    if tweet:
+                    if tweet and bot is not None:
                         try:
                             bot.statuses.update(status=tweet[0:140])#tweet[0][0:140]
                             logging.info('[TWITTER] Tweeted tweet: ' + tweet)
