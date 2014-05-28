@@ -19,7 +19,9 @@ from lib.helper import log
 from lib.helper import rotate
 from time import sleep
 from twitter import Twitter, OAuth
-from settings import CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET, log_file, USE_TWITTER
+from settings import CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET, log_file, USE_TWITTER, \
+    USE_PASTEBIN, USE_SLEXY, USE_PASTIE, USE_PASTEBIN_RU, USE_NOPASTE, USE_SAFEBIN
+
 import threading
 import logging
 
@@ -51,23 +53,28 @@ def monitor():
     log_lock = threading.Lock()
     tweet_lock = threading.Lock()
 
-    pastebin_thread = threading.Thread(
-        target=Pastebin().monitor, args=[bot, tweet_lock])
-    slexy_thread = threading.Thread(
-        target=Slexy().monitor, args=[bot, tweet_lock])
-    pastie_thead = threading.Thread(
-        target=Pastie().monitor, args=[bot, tweet_lock])
-    pastebin_ru_thread = threading.Thread(
-        target=Pastebin_ru().monitor, args=[bot, tweet_lock])
-    nopaste_thread = threading.Thread(
-        target=Nopaste().monitor, args=[bot, tweet_lock])
-    safebin_thread = threading.Thread(
-        target=Safebin().monitor, args=[bot, tweet_lock])
+    threads = []
 
-    """for thread in (pastebin_thread, slexy_thread, pastie_thead, pastebin_ru_thread, nopaste_thread, safebin_thread):
-        thread.daemon = True
-        thread.start()"""
-    for thread in (pastebin_thread, slexy_thread, pastie_thead, pastebin_ru_thread, nopaste_thread, safebin_thread):
+    if USE_PASTEBIN:
+        threads.append(threading.Thread(
+                target=Pastebin().monitor, args=[bot, tweet_lock]))
+    if USE_SLEXY:
+        threads.append(threading.Thread(
+            target=Slexy().monitor, args=[bot, tweet_lock]))
+    if USE_PASTIE:
+        threads.append(threading.Thread(
+                target=Pastie().monitor, args=[bot, tweet_lock]))
+    if USE_PASTEBIN_RU:
+        threads.append(threading.Thread(
+                target=Pastebin_ru().monitor, args=[bot, tweet_lock]))
+    if USE_NOPASTE:
+        threads.append(threading.Thread(
+                target=Nopaste().monitor, args=[bot, tweet_lock]))
+    if USE_SAFEBIN:
+        threads.append(threading.Thread(
+                target=Safebin().monitor, args=[bot, tweet_lock]))
+
+    for thread in threads:
         thread.daemon = True
         thread.start()
 
