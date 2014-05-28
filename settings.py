@@ -26,9 +26,18 @@ DB_KEYWORDS_THRESHOLD = .55
 
 # Time to Sleep for each site
 SLEEP_SLEXY = 60
-SLEEP_PASTEBIN = 15
+SLEEP_PASTEBIN = 60
 SLEEP_PASTIE = 30
 
 # Other configuration
 tweet_history = "tweet.history"
 log_file = "output.log"
+
+
+# enable/disable sites
+USE_PASTEBIN = True
+USE_SLEXY = True
+USE_PASTIE = True
+USE_PASTEBIN_RU = False
+USE_NOPASTE = True
+USE_SAFEBIN = True
