@@ -12,7 +12,22 @@ import os.path
 from time import sleep, strftime
 import logging
 import bitlyapi
+import random
 
+common_user_agents = [
+    "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0)",
+    "Mozilla/5.0 (compatible; IE 11.0; Win32; Trident/7.0)",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:29.0) Gecko/20100101 Firefox/29.0",
+    "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36",
+    "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0; chromeframe/19.0.1084.52)",
+    "Mozilla/5.0 (Windows NT 6.1; rv:26.0) Gecko/20100101 Firefox/26.0",
+    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.22 (KHTML, like Gecko) Ubuntu Chromium/25.0.1364.160 Chrome/25.0.1364.160 Saf",
+    "Mozilla/5.0 (iPad; CPU OS 5_1_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9B206 Safari/7534.48",
+    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/534.34 (KHTML, like Gecko) Qt/4.8.1 Safari/534.34",
+    "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)",
+    "Mozilla/4.0 (compatible; MSIE 5.0; Windows 98; DigExt)",
+    "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)"
+]
 
 #r = requests.Session()
 
@@ -23,6 +38,7 @@ def download(url, headers=None):
     if headers is not None:
         req = urllib2.Request(url)
         req.add_header(headers[0],headers[1])
+        req.add_header("User-Agent", random.choice(common_user_agents))
     while True:
         try:
             if headers is not None:
@@ -36,7 +52,7 @@ def download(url, headers=None):
             body = response.read()
         except:
             tries += 1
-            logging.warn('[!] Critical Error - Cannot connect to site')
+            logging.warn('[!] Critical Error - Cannot connect to site (' + url + ') - Server returned ' + response.getcode())
             sleep(5)
             logging.warn('[!] Retrying...')
             if tries <= 4:
