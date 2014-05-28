@@ -24,7 +24,7 @@ from settings import CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_S
 
 import threading
 import logging
-
+import sys
 
 def monitor():
     '''
@@ -33,10 +33,14 @@ def monitor():
     '''
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "-v", "--verbose", help="more verbose", action="store_true")
+    parser.add_argument("-v", "--verbose", help="more verbose", action="store_true")
+    parser.add_argument("-t", "--test", help="test a plugin")
+
     args = parser.parse_args()
-    rotate()
+
+    if not args.test:
+        rotate() # do not rotate in test mode
+
     level = logging.INFO
     if args.verbose:
         level = logging.DEBUG
@@ -55,42 +59,47 @@ def monitor():
 
     threads = []
 
-    if USE_PASTEBIN:
-        threads.append(threading.Thread(
-                target=Pastebin().monitor, args=[bot, tweet_lock]))
-    if USE_SLEXY:
-        threads.append(threading.Thread(
-            target=Slexy().monitor, args=[bot, tweet_lock]))
-    if USE_PASTIE:
-        threads.append(threading.Thread(
-                target=Pastie().monitor, args=[bot, tweet_lock]))
-    if USE_PASTEBIN_RU:
-        threads.append(threading.Thread(
-                target=Pastebin_ru().monitor, args=[bot, tweet_lock]))
-    if USE_NOPASTE:
-        threads.append(threading.Thread(
-                target=Nopaste().monitor, args=[bot, tweet_lock]))
-    if USE_SAFEBIN:
-        threads.append(threading.Thread(
-                target=Safebin().monitor, args=[bot, tweet_lock]))
+    if args.test:
+        # test mode
+        if args.test == 'pastebin':
+            Pastebin().monitor(bot, tweet_lock, False)
+        if args.test == 'pastebin_ru':
+            Pastebin_ru().monitor(bot, tweet_lock, False)
+        logging.info('Test finished')
+        sys.exit(0)
 
-    for thread in threads:
-        thread.daemon = True
-        thread.start()
+    else:
 
-    # Let threads run
-    try:
-        # i = 0
-        while(1):
-        #    i += 1
-            sleep(5)
-        #    if i == 6:
-        #	for thread in (pastebin_thread, slexy_thread, pastie_thead, pastebin_ru_thread, nopaste_thread):
-        #		if not thread.isAlive:
-        #			thread.daemon = True
-        #			thread.start()
-    except KeyboardInterrupt:
-        logging.warn('Stopped.')
+        if USE_PASTEBIN:
+            threads.append(threading.Thread(
+                    target=Pastebin().monitor, args=[bot, tweet_lock]))
+        if USE_SLEXY:
+            threads.append(threading.Thread(
+                    target=Slexy().monitor, args=[bot, tweet_lock]))
+        if USE_PASTIE:
+            threads.append(threading.Thread(
+                    target=Pastie().monitor, args=[bot, tweet_lock]))
+        if USE_PASTEBIN_RU:
+            threads.append(threading.Thread(
+                    target=Pastebin_ru().monitor, args=[bot, tweet_lock]))
+        if USE_NOPASTE:
+            threads.append(threading.Thread(
+                    target=Nopaste().monitor, args=[bot, tweet_lock]))
+        if USE_SAFEBIN:
+            threads.append(threading.Thread(
+                    target=Safebin().monitor, args=[bot, tweet_lock]))
+
+        for thread in threads:
+            thread.daemon = True
+            thread.start()
+
+        # Let threads run
+        try:
+            # i = 0
+            while(1):
+                sleep(5)
+        except KeyboardInterrupt:
+            logging.warn('Stopped.')
 
 
 if __name__ == "__main__":

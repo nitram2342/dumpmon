@@ -25,9 +25,10 @@ DB_KEYWORDS_THRESHOLD = .55
 #MD5_WP_THRESHOLD = 30
 
 # Time to Sleep for each site
-SLEEP_SLEXY = 60
-SLEEP_PASTEBIN = 60
-SLEEP_PASTIE = 30
+SLEEP_SLEXY = 90
+SLEEP_PASTEBIN = 90
+SLEEP_PASTIE = 90
+SLEEP_URL_RETRY=30
 
 # Other configuration
 tweet_history = "tweet.history"
@@ -38,6 +39,6 @@ log_file = "output.log"
 USE_PASTEBIN = True
 USE_SLEXY = True
 USE_PASTIE = True
-USE_PASTEBIN_RU = False
+USE_PASTEBIN_RU = True
 USE_NOPASTE = True
 USE_SAFEBIN = True

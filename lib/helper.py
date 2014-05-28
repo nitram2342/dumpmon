@@ -32,19 +32,20 @@ common_user_agents = [
 #r = requests.Session()
 
 def download(url, headers=None):
-    response = ''
+    response = None
     body = ''
     tries = 0
+
+    req = urllib2.Request(url)
+    req.add_header("User-Agent", random.choice(common_user_agents))
     if headers is not None:
-        req = urllib2.Request(url)
         req.add_header(headers[0],headers[1])
-        req.add_header("User-Agent", random.choice(common_user_agents))
+
+
     while True:
         try:
-            if headers is not None:
-                response = urllib2.urlopen(req)
-            else:
-                response = urllib2.urlopen(url)
+            response = urllib2.urlopen(req)
+
             if str(response.getcode)[0] == '3' or response.geturl() != url:
                 logging.warn('[!] Unexpected redirect, from ' + url + ' to ' + response.geturl() +', pass')
                 body = None
@@ -52,8 +53,11 @@ def download(url, headers=None):
             body = response.read()
         except:
             tries += 1
-            logging.warn('[!] Critical Error - Cannot connect to site (' + url + ') - Server returned ' + response.getcode())
-            sleep(5)
+            err_msg = '[!] Critical Error - Cannot connect to site (' + url + ')'
+            if response:
+                err_msg += ' - Server returned ' + response.getcode()
+            logging.warn(err_msg)
+            sleep(30)
             logging.warn('[!] Retrying...')
             if tries <= 4:
                 continue

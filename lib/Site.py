@@ -68,7 +68,7 @@ class Site(object):
     def list(self):
         print('\n'.join(url for url in self.queue))
 
-    def monitor(self, bot, t_lock):
+    def monitor(self, bot, t_lock, loop=True):
         self.update()
         while(1):
             while not self.empty():
@@ -116,8 +116,14 @@ class Site(object):
                     #else:
                         #helper.log('[TWITTER] Not tweeted tweet: ' + tweet)
                     #    pass
+
+            if loop == False:
+                return
+
             self.update()
+
             while self.empty():
                 logging.debug('[*] No results... sleeping')
                 time.sleep(self.sleep)
                 self.update()
+            
