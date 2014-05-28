@@ -47,6 +47,8 @@ regexes = {
             r'((available|current)\s*(databases?|dbs?)\W)', re.I),
         re.compile(r'(hacked\s*by)', re.I)
     ],
+    'organisations' : re.compile(r'bundesnachrichtendienst|intelligence|verfassungsschutz|agency', re.I),
+
     'blacklist': [  # I was hoping to not have to make a blacklist, but it looks like I don't really have a choice
     re.compile(
     r'(select\s+.*?from|join|declare\s+.*?\s+as\s+|update.*?set|insert.*?into)', re.I),  # SQL

@@ -67,8 +67,7 @@ class Paste(object):
         self.num_md5crypt = len(self.md5crypt)
         self.sunmd5 = regexes['sun_md5'].findall(self.text)
         self.num_sunmd5 = len(self.sunmd5)
-        self.total_hashes = self.num_sunmd5 + self.num_hashes + self.num_md5crypt + self.num_md5wp + self.num_shadow
-	+ self.num_sha + self.num_sha1crypt
+        self.total_hashes = self.num_sunmd5 + self.num_hashes + self.num_md5crypt + self.num_md5wp + self.num_shadow + self.num_sha + self.num_sha1crypt
         self.userpass = regexes['userpass'].findall(self.text)
         self.num_userpass = len(self.userpass)
         self.phonenum = regexes['phonenum'].findall(self.text)
@@ -126,6 +125,12 @@ class Paste(object):
 		self.type = 'unix_shadow'
 	    else:
 		self.type = 'db_dump'
+
+	self.organisations = regexes['organisations'].findall(self.text)
+	if(len(self.organisations)):
+            self.type = 'org'
+                
+
         for regex in regexes['banlist']:
             if regex.search(self.text):
                 self.type = 'not_int'
