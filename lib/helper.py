@@ -13,6 +13,7 @@ from time import sleep, strftime
 import logging
 import bitlyapi
 import random
+from settings import SLEEP_URL_RETRY
 
 common_user_agents = [
     "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0)",
@@ -57,7 +58,7 @@ def download(url, headers=None):
             if response:
                 err_msg += ' - Server returned ' + response.getcode()
             logging.warn(err_msg)
-            sleep(30)
+            sleep(SLEEP_URL_RETRY)
             logging.warn('[!] Retrying...')
             if tries <= 4:
                 continue
